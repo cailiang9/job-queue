@@ -1,7 +1,13 @@
 
 let kue   = require('kue');
 let queue = kue.createQueue();
-let sleep = require('sleep');
+
+function msleep(n) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, n);
+}
+function sleep(n) {
+  msleep(n*1000);
+}
 
 queue.process(`download`, function(job, done){
   console.log(`Working on job ${job.id}`);
@@ -11,10 +17,11 @@ queue.process(`download`, function(job, done){
 
 
 function downloadFile (file, done) {
-  sleep.sleep(5);
+  console.log(new Date());
+  sleep(5);
 
   console.log(`Downloading file : ${file}`);
-  sleep.sleep(5);
+  sleep(5);
   console.log(`Download Complete`);
   done();
 

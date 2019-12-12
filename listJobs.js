@@ -7,10 +7,10 @@ kue.Job.range(0, -1, 'asc', (err, jobs) => {
   })
 });
 
-/*
+
 queue.complete((err, jobs) => {
   jobs.map(job => {
     console.log(`Job ${job.id}, data : ${job.data}`); 
   })
 })
-*/
+
